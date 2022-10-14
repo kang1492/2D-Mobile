@@ -6,8 +6,10 @@ public class Player : MonoBehaviour
 {
     Rigidbody2D rigid2D; // 리지더 바디 가져오기
 
-    [SerializeField] SpriteRenderer sprite;
     [SerializeField] float speed = 1.0f;
+    [SerializeField] float jumpPower = 1.0f;
+    [SerializeField] SpriteRenderer sprite;
+    
 
     private void Start()
     {
@@ -33,19 +35,23 @@ public class Player : MonoBehaviour
             (
             x * speed * Time.deltaTime,
             //y * speed * Time.deltaTime,
-            transform.position.y, // 점프 하기
+            //transform.position.y, // 점프 하기 = 에러
+            0,
             transform.position.z
             );
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // ForceMode2D.Impulse : 무게를 적용할 때 사용합니다. 점 누르면 다른 여러가지 있음
+            rigid2D.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        }
     }
 
     //리지더 바디에 연산 같은 경우
-    private void FixedUpdate()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            
-        }
-    }
+    //private void FixedUpdate()
+    //{
+        
+    //}
 
     // 2D 새로운 충돌 함수
     // 유니티 2D 에서는 2D Collider랑 Rigidbody 2D 는 2D 충돌 함수를 사용해야 합니다.
