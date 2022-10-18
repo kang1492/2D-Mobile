@@ -40,18 +40,29 @@ public class Player : MonoBehaviour
             transform.position.z
             );
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
             // ForceMode2D.Impulse : 무게를 적용할 때 사용합니다. 점 누르면 다른 여러가지 있음
-            rigid2D.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-        }
+        //    rigid2D.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        //}
     }
-
     //리지더 바디에 연산 같은 경우
     //private void FixedUpdate()
     //{
         
     //}
+
+    public void Jump()
+    {
+        //if (Input.GetKeyDown(KeyCode.Space)) // 10-18 이동
+        //{
+            // ForceMode2D.Impulse : 무게를 적용할 때 사용합니다. 점 누르면 다른 여러가지 있음
+            rigid2D.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        //}
+    }
+
+
+
 
     // 2D 새로운 충돌 함수
     // 유니티 2D 에서는 2D Collider랑 Rigidbody 2D 는 2D 충돌 함수를 사용해야 합니다.
