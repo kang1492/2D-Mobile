@@ -8,8 +8,15 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private RectTransform rectTransform;
 
-    [SerializeField, Range(10f,150f)] // 최대값 최소값 밖에서 설정하기
+    [SerializeField] Player player; // 10-19
+
+    [SerializeField, Range(10f, 150f)] // 최대값 최소값 밖에서 설정하기
+
     float leverRange;
+
+    Vector2 inputDirection; // 10-19
+
+    bool condition; //10-19 
 
     void Awake()
     {
@@ -29,8 +36,13 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // 노말라이징 넣는 이유 : 방향키 큔등하게 이동할수 있도록
 
         lever.anchoredPosition = clampDirection;
+
+        this.inputDirection = clampDirection / leverRange; // 10-19
+        // 캐릭터의 이동속도를 0~1 사이의 값을 정규화 합니다.
+
+        condition = true;
     }
-                // 드래그 중
+    // 드래그 중
     public void OnDrag(PointerEventData eventData)
     {
         Debug.Log("드래그 중");
@@ -46,12 +58,37 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                                // 노말라이징 넣는 이유 : 방향키 큔등하게 이동할수 있도록
 
         lever.anchoredPosition = clampDirection;
+
+        this.inputDirection = clampDirection / leverRange; // 10-19
+        // 캐릭터의 이동속도를 0~1 사이의 값을 정규화 합니다.
+
+        
     }
                 // 드래그 끝
     public void OnEndDrag(PointerEventData eventData)
     {
+        player.Slip(); // 10-19 이동속도 호출
+
         Debug.Log("드래그 종료");
         // lever의 위치를 x = 0, y = 0 으로 초기화 합니다
         lever.anchoredPosition = Vector2.zero;
+
+        // 플레이어의 이동을 초기화 합니다.
+        player.Move(Vector2.zero); // 이동속도 0 /10-19
+
+        condition = false;
+    }
+
+    public void CharacterMove() //10-19
+    {
+        player.Move(inputDirection);
+    }
+
+    void Update() //10-19
+    {
+        if (condition == true) // 컨티션이 트류라면 이동할수 있개
+        {
+            CharacterMove();
+        }
     }
 }

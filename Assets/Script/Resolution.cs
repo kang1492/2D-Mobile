@@ -9,8 +9,8 @@ public class Resolution : MonoBehaviour
         // 가져오겟다 = 메인카메라 (viewport Rect)
         Rect rect = Camera.main.rect;
 
-        // 높이 변수  플로트값나오게     가로값                      16대 9 비율
-        float height = ((float)Screen.width / Screen.height) / (16.0f / 9.0f);
+        // 높이 변수  플로트값나오게     가로값                      9대 16 비율
+        float height = ((float)Screen.width / Screen.height) / (9.0f / 16.0f);
         float width = 1f / height;
 
         if(height < 1 )

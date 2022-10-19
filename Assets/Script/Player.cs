@@ -16,24 +16,49 @@ public class Player : MonoBehaviour
         rigid2D = GetComponent<Rigidbody2D>();
     }
 
+    public void Slip() // 10-19
+    {
+        rigid2D.velocity = Vector2.zero; // 캐릭터 이동속도 멈추개
+    }
+
     void Update()
     {
-        float x = Input.GetAxis("Horizontal");
+        
+    }
+    //리지더 바디에 연산 같은 경우
+    //private void FixedUpdate()
+    //{
+
+    //}
+
+    public void Move(Vector2 direction) // 10-19
+    {
+        //float x = Input.GetAxis("Horizontal");
         //float y = Input.GetAxis("Vertical"); 
 
-        if(x > 0)
+        //if (x > 0)
+        //{
+        //    sprite.flipX = false;
+        //}
+        // else if (x < 0)
+        //{
+        //    sprite.flipX = true;
+        //}
+
+        if (direction.x > 0)
         {
-            sprite.flipX = false;
+           sprite.flipX = false;
         }
-        else if( x < 0)
+        else if (direction.x < 0)
         {
             sprite.flipX = true;
         }
 
+
         // 움직이기
         transform.Translate
             (
-            x * speed * Time.deltaTime,
+            direction.x * speed * Time.deltaTime,
             //y * speed * Time.deltaTime,
             //transform.position.y, // 점프 하기 = 에러
             0,
@@ -42,15 +67,10 @@ public class Player : MonoBehaviour
 
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
-            // ForceMode2D.Impulse : 무게를 적용할 때 사용합니다. 점 누르면 다른 여러가지 있음
+        // ForceMode2D.Impulse : 무게를 적용할 때 사용합니다. 점 누르면 다른 여러가지 있음
         //    rigid2D.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         //}
     }
-    //리지더 바디에 연산 같은 경우
-    //private void FixedUpdate()
-    //{
-        
-    //}
 
     public void Jump()
     {
