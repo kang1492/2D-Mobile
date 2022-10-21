@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     Rigidbody2D rigid2D; // 리지더 바디 가져오기
 
+    [SerializeField] int health = 100; //10-21
     [SerializeField] float speed = 1.0f;
     [SerializeField] float jumpPower = 1.0f;
     [SerializeField] SpriteRenderer sprite;
@@ -16,15 +17,23 @@ public class Player : MonoBehaviour
         rigid2D = GetComponent<Rigidbody2D>();
     }
 
-    public void Slip() // 10-19
+    public void Update()
     {
-        rigid2D.velocity = Vector2.zero; // 캐릭터 이동속도 멈추개
+        // 캐릭터의 y축 위치가 -10보다 작다면
+        if(transform.position.y <= -10)
+        {
+            // 캐릭터의 위치를 x(0), y(0)으로 설정합니다.
+            transform.position = new Vector2(7.4f, 0.75f);// 시작 위치ㅇ
+            //                   Vector2.zero;
+        }
     }
 
-    void Update()
-    {
-        
-    }
+    //public void Slip() // 10-19 //10-21 잠시 지우기
+    //{
+    //    rigid2D.velocity = Vector2.zero; // 캐릭터 이동속도 멈추개
+    //}
+
+    
     //리지더 바디에 연산 같은 경우
     //private void FixedUpdate()
     //{
@@ -79,6 +88,9 @@ public class Player : MonoBehaviour
             // ForceMode2D.Impulse : 무게를 적용할 때 사용합니다. 점 누르면 다른 여러가지 있음
             rigid2D.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         //}
+
+        // 1초 동안 진동을 울리는 함수입니다. //10-21
+        Handheld.Vibrate();
     }
 
 
@@ -91,9 +103,19 @@ public class Player : MonoBehaviour
         //Debug.Log("2D 충돌");
         if(collision.CompareTag("Portal")) // 포탈이랑 부딧치면
         {                                                       // -10 해두 됨
-            Camera.main.transform.position = new Vector3(20, 0, Camera.main.transform.position.z);
+            //Camera.main.transform.position = new Vector3(20, 0, Camera.main.transform.position.z);
+            // 캐릭터에 메인카메라 따라 가서 카메라 위치를 이동시킬 필요가 없다
             transform.position = new Vector3(12.5f, 0, 0);
         }
+
+        if(collision.CompareTag("Potion")) // 10-21 // 포션오타
+        {
+            health += 10;
+
+            // 부딪힌 객체가 파괴됩니다.
+            Destroy(collision.gameObject);
+        }
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -67,7 +67,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 // 드래그 끝
     public void OnEndDrag(PointerEventData eventData)
     {
-        player.Slip(); // 10-19 이동속도 호출
+        //player.Slip(); // 10-19 이동속도 호출
 
         Debug.Log("드래그 종료");
         // lever의 위치를 x = 0, y = 0 으로 초기화 합니다
