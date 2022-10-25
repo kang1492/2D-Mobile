@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scaffold : MonoBehaviour
 {
-    // 이동 하고 싶은 위치
+    // 이동 하고 싶은 위치 / 이동하는 발판
     Vector3 direction;
     void Update()
     {
@@ -15,7 +15,7 @@ public class Scaffold : MonoBehaviour
         transform.position = 
             new Vector2
             (
-             Mathf.PingPong(Time.time, 10), // x 값
+             Mathf.PingPong(Time.time, 3), // x 값
              transform.position.y            // y 값
             );
     }

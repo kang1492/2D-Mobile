@@ -5,11 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody2D rigid2D; // 리지더 바디 가져오기
+    int value = 0; // 10-25
 
     [SerializeField] int health = 100; //10-21
     [SerializeField] float speed = 1.0f;
     [SerializeField] float jumpPower = 1.0f;
     [SerializeField] SpriteRenderer sprite;
+    [SerializeField] GameManager gameManager; // 10-25 가져오기
     
 
     private void Start()
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour
         if(transform.position.y <= -10)
         {
             // 캐릭터의 위치를 x(0), y(0)으로 설정합니다.
-            transform.position = new Vector2(7.4f, 0.75f);// 시작 위치ㅇ
+            transform.position = new Vector2(0f, 0f);// 시작 위치ㅇ
             //                   Vector2.zero;
         }
     }
@@ -83,10 +85,18 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
+        //int value = 0; // 10-25
+
+        gameManager.Score = value++; // 점프를 할때마다 값을 증가 시키기 10-25
+
+        Debug.Log(gameManager.Score);// 점프 할때 마다 값이 출력되것임
+
+        //GameManager.instance.Score(value); // 점프 할때 마다 값 올려주기
+
         //if (Input.GetKeyDown(KeyCode.Space)) // 10-18 이동
         //{
-            // ForceMode2D.Impulse : 무게를 적용할 때 사용합니다. 점 누르면 다른 여러가지 있음
-            rigid2D.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        // ForceMode2D.Impulse : 무게를 적용할 때 사용합니다. 점 누르면 다른 여러가지 있음
+        rigid2D.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         //}
 
         // 1초 동안 진동을 울리는 함수입니다. //10-21
@@ -118,6 +128,7 @@ public class Player : MonoBehaviour
 
     }
 
+    // 밑에 꺼는 지워도 됨.
     private void OnTriggerStay2D(Collider2D collision)
     {
         Debug.Log("2D 충돌 중");
