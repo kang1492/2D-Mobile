@@ -129,6 +129,7 @@ public class Player : MonoBehaviour
     }
 
     // ¹Ø¿¡ ²¨´Â Áö¿öµµ µÊ.
+    /*
     private void OnTriggerStay2D(Collider2D collision)
     {
         Debug.Log("2D Ãæµ¹ Áß");
@@ -154,6 +155,6 @@ public class Player : MonoBehaviour
     {
         Debug.Log("2D Ãæµ¹ ¹þ¾î³² Collision");
     }
-
+    */
    
 }

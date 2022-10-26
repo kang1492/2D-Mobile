@@ -12,11 +12,20 @@ public class Scaffold : MonoBehaviour
         // x축으로 -9.9999 까지 이동하다가 다시 0.0001로 이동합니다.
         // 발판 움직이기
         // transform.position "+"로 해주셔야 합니다.
+        /*
         transform.position = 
             new Vector2
             (
-             Mathf.PingPong(Time.time, 3), // x 값
+             Mathf.PingPong(Time.time, 3), // x 값          
              transform.position.y            // y 값
+            );
+        */
+
+        transform.position =
+            new Vector2
+            (
+              transform.position.x, // x 값
+              Mathf.PingPong(Time.time, 3)            // y 값
             );
     }
 }
