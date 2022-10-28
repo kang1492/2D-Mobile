@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class Data // 게임에 관련되 케이스 만들기
 {
+    public int maxScore; // 10-28 점수 만들기
     public int money;
 }
 
 public class DataManager : MonoBehaviour
 {
+    public int currentScore = 0; // 임시 변수 //10-28
     // 신글톤으로 만들어야 된다.돈 
     public static DataManager instance;
 
@@ -38,8 +40,18 @@ public class DataManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.B)) // b 키 누를때 마다 증사 시키기
         {
-            data.money++;
-            Debug.Log(data.money);
+            //data.money++;
+            currentScore++;// 10-28
+
+            if(data.maxScore <= currentScore) 
+            {
+                data.maxScore = currentScore;
+            }
+
+            Debug.Log("현재 스코어 : " + currentScore);
+            Debug.Log("최고 스코어 : " + data.maxScore);
+
+            //Debug.Log(data.money);
             Save();
         }
     }
